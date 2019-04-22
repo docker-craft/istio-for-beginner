@@ -16,7 +16,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: sleep
+  name: sleep-v1
 spec:
   replicas: 1
   template:
@@ -24,10 +24,33 @@ spec:
       labels:
         app: sleep
         version: v1
+      annotations:
+        traffic.sidecar.istio.io/includeOutboundIPRanges : 10.245.0.0/16
     spec:
       containers:
         - name: sleep
           image: dustise/sleep
           imagePullPolicy: IfNotPresent
+          env:
+            - name: version
+              value: v1
 ---
-
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sleep-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sleep
+        version: v2
+    spec:
+      containers:
+        - name: sleep
+          image: dustise/sleep
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: version
+              value: v2

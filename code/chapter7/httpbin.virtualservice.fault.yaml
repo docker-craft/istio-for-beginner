@@ -4,18 +4,19 @@ metadata:
   name: httpbin
 spec:
   hosts:
-    - httpbin.default.svc.cluster.local
+  - httpbin.default.svc.cluster.local
   http:
-    - match:
-      - sourceLabels:
-          version: v1
-      route:
-        - destination:
-            host: httpbin.default.svc.cluster.local
-      fault:
-        abort:
-          httpStatus: 500
-          percent: 100
-    - route:
-        - destination:
-            host: httpbin.default.svc.cluster.local
+  - match:
+    - sourceLabels:
+        version: v1
+    route:
+      - destination:
+          host: httpbin.default.svc.cluster.local
+    fault:
+      abort:
+        httpStatus: 500
+        percent: 100
+  - route:
+    - destination:
+        host: httpbin.default.svc.cluster.local
+

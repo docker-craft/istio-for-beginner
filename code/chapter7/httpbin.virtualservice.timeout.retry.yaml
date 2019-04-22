@@ -10,6 +10,6 @@ spec:
         - destination:
             host: httpbin.default.svc.cluster.local
       retries:
-          attempts: 3
+          attempts: 6
           perTryTimeout: 1s
       timeout: 7s
